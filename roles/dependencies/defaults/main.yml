@@ -1,0 +1,10 @@
+docker_rootless:
+  user: enot
+  uid: 1100
+  group: dockerrootless
+
+users_dict:
+  - user: "{{ docker_rootless.user }}"
+    uid: "{{ docker_rootless.uid }}"
+    group: "{{ docker_rootless.group }}"
+    subuid_base: 100000

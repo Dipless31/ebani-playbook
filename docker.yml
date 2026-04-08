@@ -1,0 +1,6 @@
+---
+- name: install docker 
+  hosts: docker
+  tasks:
+    - ansible.builtin.import_role: 
+        name: dependencies

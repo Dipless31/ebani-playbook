@@ -1,0 +1,4 @@
+{% for user in users_dict %}
+{% set base_uid = user.subuid_base | default(100000 + (user.uid | int * 65536)) %}
+{{ user.user }}:{{ base_uid }}:65536
+{% endfor %}

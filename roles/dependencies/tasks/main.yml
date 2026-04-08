@@ -1,0 +1,39 @@
+---
+- name: Install docker pre-requisites
+  ansible.builtin.apt:
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      - fuse-overlayfs
+      - slirp4netns
+      - uidmap
+      - dbus-user-session
+  become: true
+
+- name: Add docker GPG key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.gpg
+    mode: '0644'
+  become: true
+
+- name: Add Docker repository to Apt sources
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: yes
+  become: true 
+ 
+- name: Install docker
+  ansible.builtin.apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+  become: true 
+
+- name: Include rootless setup
+  ansible.builtin.import_tasks: rootless.yml
