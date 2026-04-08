@@ -58,6 +58,7 @@
     var: subid_check.results
 
 - name: install rootless docker
+  become: true
   become_user: "{{ item.user }}"
   ansible.builtin.shell: |
     export XDG_RUNTIME_DIR="/run/user/{{ item.uid }}"
@@ -76,12 +77,3 @@
     line: 'export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock'
     create: true
   loop: "{{ users_dict }}"
-  
-# остановился на том, что экспортировал runtime,
-#  по логу, он экспортировался, но всё равно не может
-  # он запустить от имени docker, почему, идей пока что нет,
-  #  нужно наверное вывод посмотреть, потому что я сделал всё,
-    # как руками я создавал до этого момента.
-    #  Экспорт сокета происходит в следующем шаге 
-
-    

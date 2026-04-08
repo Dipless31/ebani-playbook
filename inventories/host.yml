@@ -3,5 +3,5 @@ all:
   hosts:
     docker:
       ansible_host: 82.97.240.108
-      ansible_user: ansible
+      ansible_user: root
       ansible_ssh_private_key_file: /home/dipless/.ssh/id_ed25519
