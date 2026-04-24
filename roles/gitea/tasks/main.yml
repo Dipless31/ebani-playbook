@@ -1,0 +1,26 @@
+--- 
+- name: Ensure gitea dirs exist
+  ansible.builtin.file:
+    path: "/home/enot/gitea/{{ item }}"
+    state: directory
+    owner: enot
+    group: dockerrootless
+    mode: '0750'
+  loop:
+    "{{ gitea_dirs }}"
+
+- name: Render docker compose
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: /home/enot/gitea/docker-compose.yml
+    owner: enot
+    group: dockerrootless
+
+- name: Start docker compose
+  community.docker.docker_compose_v2:
+    project_src: /home/enot/gitea
+    state: present
+  become: true
+  become_user: enot
+  environment:
+    DOCKER_HOST: "unix:///run/user/1100/docker.sock"
