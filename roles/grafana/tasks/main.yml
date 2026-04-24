@@ -1,0 +1,12 @@
+--- 
+- name: Configuring grafana
+  block: 
+    - name: Ensure grafana dirs exist
+      ansible.builtin.file:
+        path: /storage/grafana
+        state: directory
+        owner: ansible
+        group: ansible
+        mode: "0755"
+
+    - name: 

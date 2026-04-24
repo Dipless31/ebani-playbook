@@ -33,6 +33,7 @@
       - docker-ce-cli
       - containerd.io
       - docker-compose-plugin
+      - docker-ce-rootless-extras
   become: true 
 
 - name: Include rootless setup

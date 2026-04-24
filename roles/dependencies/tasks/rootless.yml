@@ -74,6 +74,5 @@
   become_user: "{{ item.user }}"
   ansible.builtin.lineinfile:
     path: "/home/{{ item.user }}/.bashrc"
-    line: 'export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock'
-    create: true
+    line: 'export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock' 
   loop: "{{ users_dict }}"
